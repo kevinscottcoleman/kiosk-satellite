@@ -186,10 +186,23 @@ abstract final class PryonCatalog {
     }
   }
 
+  /// A path other than the Echo images' own, for a ROM that points pryond
+  /// somewhere else (PryonService.SOCKET_PROPERTY). Null on every Echo
+  /// image, where the default is always right.
+  static Future<String?> _socketPathOverride() async {
+    try {
+      final path = await _channel.invokeMethod<String>('pryonSocket');
+      return (path == null || path.isEmpty) ? null : path;
+    } catch (_) {
+      return null;
+    }
+  }
+
   /// Read the service's list on the image, then hide the engine wherever
   /// there is nothing to listen with. Before the settings render: both
   /// settings UIs and the ESPHome select read the hidden options.
   static Future<void> init(Logger log) async {
+    socketPath = await _socketPathOverride() ?? pryonSocketPath;
     if (enabled && await _imageHasService()) {
       try {
         final hello = parseHello(await _hello());

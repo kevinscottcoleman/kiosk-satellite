@@ -484,6 +484,7 @@ class BackgroundBridge(
                     Headless.active(context) && Headless.volumeClaim,
                 )
                 "pryon" -> result.success(PryonService.available)
+                "pryonSocket" -> result.success(PryonService.socketPathOverride)
                 "bringToFront" -> result.success(bringToFront())
                 "isBehindAnotherApp" -> result.success(!ActivityState.frontmost)
                 // "Screen on" from the admin or the screensaver: light a
