@@ -8532,6 +8532,26 @@ class UiStringsRu extends UiStrings {
   String get groundControlApp => 'Приложение Ground Control';
 
   @override
+  String get groundControlFeatures => 'Функции';
+
+  @override
+  String get settingGroundControlVoiceMatchTitle => 'Voice Match';
+
+  @override
+  String get settingGroundControlVoiceMatchDescription =>
+      'Распознавание говорящего, удаление других голосов и запись голоса.';
+
+  @override
+  String get groundControlVisionMatch => 'Vision Match';
+
+  @override
+  String get groundControlVisionMatchDescription =>
+      'Распознавание лиц с помощью камеры этого устройства.';
+
+  @override
+  String get groundControlComingSoon => 'Скоро';
+
+  @override
   String get haCustomPages => 'Свои страницы';
 
   @override
@@ -9348,6 +9368,19 @@ class UiStringsRu extends UiStrings {
 
   @override
   String get intercomOptionHangupRingingIgnore => 'Игнорировать';
+
+  @override
+  String get settingIntercomCallButtonsTitle => 'Кнопки вызова';
+
+  @override
+  String get settingIntercomCallButtonsDescription =>
+      'Кнопки на экране киоска, которому вы звоните. Нажатие выполняет действие на этом киоске.';
+
+  @override
+  String get intercomCallButtonsAdd => 'Добавить кнопку';
+
+  @override
+  String get intercomCallButtonIcon => 'Значок';
 
   @override
   String get intercomTalkSection => 'Разговор';
@@ -15636,6 +15669,13 @@ class UiStringsRu extends UiStrings {
   @override
   String get settingTimersShowBeforeEndDescription =>
       'За сколько до завершения таймера открывается вид таймеров.';
+
+  @override
+  String get settingTimersEnabledTitle => 'Включить таймеры';
+
+  @override
+  String get settingTimersEnabledDescription =>
+      'Ставьте таймеры на этом киоске голосом и вручную.';
 
   @override
   String get settingTimersShowOnStartTitle =>

@@ -2457,6 +2457,15 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingGroundControlAddressDescription,
       'groundControlLooking' => strings.groundControlLooking,
       'groundControlApp' => strings.groundControlApp,
+      'groundControlFeatures' => strings.groundControlFeatures,
+      'settingGroundControlVoiceMatchTitle' =>
+        strings.settingGroundControlVoiceMatchTitle,
+      'settingGroundControlVoiceMatchDescription' =>
+        strings.settingGroundControlVoiceMatchDescription,
+      'groundControlVisionMatch' => strings.groundControlVisionMatch,
+      'groundControlVisionMatchDescription' =>
+        strings.groundControlVisionMatchDescription,
+      'groundControlComingSoon' => strings.groundControlComingSoon,
       'haCustomPages' => strings.haCustomPages,
       'haCustomPagesHintDashboard' => strings.haCustomPagesHintDashboard,
       'settingHaCustomPagesSocketTitle' =>
@@ -2736,6 +2745,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.intercomOptionHangupRingingDecline,
       'intercomOptionHangupRingingIgnore' =>
         strings.intercomOptionHangupRingingIgnore,
+      'settingIntercomCallButtonsTitle' =>
+        strings.settingIntercomCallButtonsTitle,
+      'settingIntercomCallButtonsDescription' =>
+        strings.settingIntercomCallButtonsDescription,
+      'intercomCallButtonsAdd' => strings.intercomCallButtonsAdd,
+      'intercomCallButtonIcon' => strings.intercomCallButtonIcon,
       'intercomTalkSection' => strings.intercomTalkSection,
       'settingIntercomVideoTitle' => strings.settingIntercomVideoTitle,
       'settingIntercomVideoDescription' =>
@@ -5363,6 +5378,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingTimersShowBeforeEndTitle,
       'settingTimersShowBeforeEndDescription' =>
         strings.settingTimersShowBeforeEndDescription,
+      'settingTimersEnabledTitle' => strings.settingTimersEnabledTitle,
+      'settingTimersEnabledDescription' =>
+        strings.settingTimersEnabledDescription,
       'settingTimersShowOnStartTitle' => strings.settingTimersShowOnStartTitle,
       'settingTimersShowOnStartDescription' =>
         strings.settingTimersShowOnStartDescription,

@@ -8660,6 +8660,26 @@ class UiStringsDe extends UiStrings {
   String get groundControlApp => 'Ground Control App';
 
   @override
+  String get groundControlFeatures => 'Funktionen';
+
+  @override
+  String get settingGroundControlVoiceMatchTitle => 'Voice Match';
+
+  @override
+  String get settingGroundControlVoiceMatchDescription =>
+      'Sprechererkennung, Entfernen anderer Stimmen und Einlernen.';
+
+  @override
+  String get groundControlVisionMatch => 'Vision Match';
+
+  @override
+  String get groundControlVisionMatchDescription =>
+      'Gesichtserkennung mit der Kamera dieses Geräts.';
+
+  @override
+  String get groundControlComingSoon => 'Demnächst';
+
+  @override
   String get haCustomPages => 'Eigene Seiten';
 
   @override
@@ -9489,6 +9509,19 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get intercomOptionHangupRingingIgnore => 'Ignorieren';
+
+  @override
+  String get settingIntercomCallButtonsTitle => 'Anruftasten';
+
+  @override
+  String get settingIntercomCallButtonsDescription =>
+      'Tasten auf dem Bildschirm des angerufenen Kiosks. Ein Tippen führt die Aktion auf diesem Kiosk aus.';
+
+  @override
+  String get intercomCallButtonsAdd => 'Taste hinzufügen';
+
+  @override
+  String get intercomCallButtonIcon => 'Symbol';
 
   @override
   String get intercomTalkSection => 'Gespräch';
@@ -15859,6 +15892,13 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingTimersShowBeforeEndDescription =>
       'Wie lange vor dem Ablauf eines Timers die Timer-Ansicht geöffnet wird.';
+
+  @override
+  String get settingTimersEnabledTitle => 'Timer aktivieren';
+
+  @override
+  String get settingTimersEnabledDescription =>
+      'Stelle Timer auf diesem Kiosk per Sprache und von Hand.';
 
   @override
   String get settingTimersShowOnStartTitle =>

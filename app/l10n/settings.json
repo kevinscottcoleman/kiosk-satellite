@@ -1423,6 +1423,10 @@
     "title": "settingIntercomHangupKeyRingingTitle",
     "description": "settingIntercomHangupKeyRingingDescription"
   },
+  "intercom.call_buttons": {
+    "title": "settingIntercomCallButtonsTitle",
+    "description": "settingIntercomCallButtonsDescription"
+  },
   "kiosk.enabled": {
     "title": "settingKioskEnabledTitle",
     "description": "settingKioskEnabledDescription"
@@ -2763,6 +2767,10 @@
     "title": "settingShowInKioskMenuTitle",
     "description": "settingUiDrawerItemsDescription"
   },
+  "timers.enabled": {
+    "title": "settingTimersEnabledTitle",
+    "description": "settingTimersEnabledDescription"
+  },
   "timers.show_on_start": {
     "title": "settingTimersShowOnStartTitle",
     "description": "settingTimersShowOnStartDescription"
@@ -2810,5 +2818,9 @@
   "ground_control.address": {
     "title": "settingGroundControlAddressTitle",
     "description": "settingGroundControlAddressDescription"
+  },
+  "ground_control.voice_match": {
+    "title": "settingGroundControlVoiceMatchTitle",
+    "description": "settingGroundControlVoiceMatchDescription"
   }
 }

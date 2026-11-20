@@ -221,7 +221,7 @@ The kiosk also adds a **Voice Satellite** text sensor. It reads `idle`, `listeni
 
 With [Voice Match](voice-match.md) on, the kiosk also adds a **Speaker** text sensor with the name of the person talking.
 
-Two more sensors follow the kiosk's timers. **VS Timers** counts the timers that are running or paused. **VS Next timer** is a timestamp of when the soonest running timer ends, so a tile or entity card counts down to it on its own. It reads unknown while no timer runs.
+Two more sensors follow the kiosk's timers. **VS Timers** counts the timers that are running or paused. **VS Next timer** is a timestamp of when the soonest running timer ends, so a tile or entity card counts down to it on its own. It reads unknown while no timer runs. With **Enable timers** off, these two sensors, **VS Mute timers** and the timer actions are not listed. See [Turning timers off](timers.md#turning-timers-off).
 
 And these actions, named after the kiosk's [node name](esphome.md#node-name):
 
@@ -320,7 +320,7 @@ data:
   seconds: 0
 ```
 
-`vs_pause_timer`, `vs_resume_timer`, `vs_cancel_timer`, `vs_add_time` and `vs_remove_time` take the `timer_id` from `vs_list_timers` or from the [timer event](#timer-events). An empty `timer_id` picks the kiosk's only timer and fails when it has several. Pausing a paused timer or resuming a running one does nothing.
+`vs_pause_timer`, `vs_resume_timer`, `vs_cancel_timer`, `vs_add_time` and `vs_remove_time` take the `timer_id` from `vs_list_timers` or from the [timer event](#timer-events). ESPHome actions need every field, so pass `timer_id: ""` to pick the kiosk's only timer. An empty `timer_id` fails when the kiosk has several. `vs_cancel_timer` also silences a ringing timer. Pausing a paused timer or resuming a running one does nothing.
 
 Home Assistant's timer intents do the change, and they cannot find a timer by its ID. The kiosk looks the timer up and asks for it by name, or by the duration it started with when it has no name. Two timers on the same kiosk with the same name, or two unnamed timers that started with the same duration, look the same to Home Assistant, and the action fails with an error that says so. Give timers names to keep them apart.
 

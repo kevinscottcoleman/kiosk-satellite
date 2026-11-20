@@ -1274,6 +1274,7 @@ const kioskAllowTimers = SettingDef<bool>(
   section: 'Allowed Actions',
   subpage: 'Allowed Actions',
   dependsOn: 'kiosk.allow_drawer',
+  alsoDependsOn: 'timers.enabled',
 );
 
 const kioskAllowCalendar = SettingDef<bool>(
@@ -1414,6 +1415,9 @@ const kioskAllowedApps = SettingDef<String>(
 // gesture below replaces the kiosk one, so the two can share a value
 // without ever being armed together.
 
+// Per device (issue #1505): the switch is this kiosk's live state, and a
+// fleet sync would unlock a follower locked on its own. The rest of the
+// Lockdown setup still travels with its category.
 const lockdownEnabled = SettingDef<bool>(
   key: 'lockdown.enabled',
   type: SettingType.boolean,
@@ -1423,6 +1427,7 @@ const lockdownEnabled = SettingDef<bool>(
       'Disables screen interactions until turned off either from Home '
       'Assistant or with the exit gesture.',
   category: 'Lockdown',
+  perDevice: true,
 );
 
 /// Where the kiosk menu's Lockdown Mode row had its own switch. A link to
@@ -8131,6 +8136,21 @@ const groundControlAddress = SettingDef<String>(
   dependsOn: 'ground_control.enabled',
 );
 
+/// Ground Control's features, each a row under Features that opens its page:
+/// Voice Match lives under Voice Satellite. Vision Match, coming soon,
+/// is a row of its own under this one (GroundControlComingSoonRow, and
+/// ground_control.js on the remote).
+const groundControlVoiceMatch = SettingDef<bool>(
+  key: 'ground_control.voice_match',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Voice Match',
+  description: 'Speaker recognition, other voices removal and enrollment.',
+  category: 'Ground Control',
+  section: 'Features',
+  linksTo: 'voice_match.enabled',
+);
+
 // Voice Match: Ground Control tells who is talking and when someone else (a
 // TV) starts, so a turn ends at the speaker's last word.
 
@@ -8709,6 +8729,21 @@ const voiceAnnouncementLinger = SettingDef<num>(
   dependsOn: 'voice.enabled',
 );
 
+/// The master switch for timers on this kiosk. Off, the ESPHome voice
+/// assistant stops offering timers, so Home Assistant's timer intents and
+/// its LLM timer tools leave this kiosk to your own setup (issue #1508).
+/// The Timers view, the pills, shared timers and the timer entities and
+/// actions go with it. Home Assistant reads the feature at connect, so a
+/// flip restarts the ESPHome server.
+const timersEnabled = SettingDef<bool>(
+  key: 'timers.enabled',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Enable timers',
+  description: 'Set timers on this kiosk by voice and by hand.',
+  category: 'Timers',
+);
+
 const voiceTimerPills = SettingDef<bool>(
   key: 'voice.timer_pills',
   type: SettingType.boolean,
@@ -8718,6 +8753,7 @@ const voiceTimerPills = SettingDef<bool>(
       'Timers float over the screen instead of opening the full screen view.',
   category: 'Timers',
   section: 'Pills',
+  dependsOn: 'timers.enabled',
 );
 
 const voiceTimerNameInPill = SettingDef<bool>(
@@ -8770,6 +8806,7 @@ const voiceMuteTimers = SettingDef<bool>(
   category: 'Timers',
   section: 'When a timer ends',
   dependsOn: 'voice.enabled',
+  alsoDependsOn: 'timers.enabled',
 );
 
 /// The choices of Silence after and Dismiss after, in seconds. 0 never
@@ -8797,6 +8834,7 @@ const timersSilenceAfter = SettingDef<String>(
   description: 'The finished timer stays on screen until it is dismissed.',
   category: 'Timers',
   section: 'When a timer ends',
+  dependsOn: 'timers.enabled',
   options: _timerAlertLimits,
   optionLabels: _timerAlertLimitLabels,
 );
@@ -8812,6 +8850,7 @@ const timersDismissAfter = SettingDef<String>(
   description: 'Clears a finished timer as if Dismiss was tapped.',
   category: 'Timers',
   section: 'When a timer ends',
+  dependsOn: 'timers.enabled',
   options: _timerAlertLimits,
   optionLabels: _timerAlertLimitLabels,
 );
@@ -8836,6 +8875,7 @@ const voiceTimerSpeak = SettingDef<bool>(
   category: 'Timers',
   section: 'When a timer ends',
   dependsOn: 'voice.enabled',
+  alsoDependsOn: 'timers.enabled',
 );
 
 const voiceTimerPhrase = SettingDef<String>(
@@ -8919,6 +8959,7 @@ const timersMenu = SettingDef<bool>(
   title: 'Show in the kiosk menu',
   description: 'Choose the items the drawer menu shows and their order.',
   category: 'Timers',
+  dependsOn: 'timers.enabled',
   linksTo: 'ui.drawer_items',
 );
 
@@ -8975,6 +9016,7 @@ const voiceTimersShare = SettingDef<bool>(
   category: 'Timers',
   section: 'Shared timers',
   dependsOn: 'voice.enabled',
+  alsoDependsOn: 'timers.enabled',
 );
 
 /// The kiosks this one shares its timers with: a JSON list of
@@ -9000,6 +9042,7 @@ const voiceTimersReceive = SettingDef<bool>(
   description: 'Timers shared by other kiosks show and ring here.',
   category: 'Timers',
   section: 'Shared timers',
+  dependsOn: 'timers.enabled',
 );
 
 const voiceWakeSound = SettingDef<bool>(
@@ -9058,6 +9101,7 @@ const voiceChimeTimer = SettingDef<String>(
   description: 'Repeats when a timer finishes until you dismiss it.',
   category: 'Timers',
   section: 'When a timer ends',
+  dependsOn: 'timers.enabled',
   perDevice: true,
   validator: validateNotificationSound,
 );
@@ -9139,6 +9183,7 @@ const voiceChimeTimerVolume = SettingDef<num>(
   description: 'A share of the assistant volume.',
   category: 'Timers',
   section: 'When a timer ends',
+  dependsOn: 'timers.enabled',
 );
 
 const voiceChimeAnnounceVolume = SettingDef<num>(
@@ -9735,6 +9780,8 @@ const haReturnHomeSeconds = SettingDef<num>(
 /// every surface stays in step and the state survives a restart. While on,
 /// the screensaver will not start, dashboard view rotation freezes in
 /// place, the return-home timer stands down and the display stays awake.
+/// Per device (issue #1505): it is this kiosk's live state, and a fleet
+/// sync would turn a follower's hold off again within minutes.
 const haHoldMode = SettingDef<bool>(
   key: 'ha.hold_mode',
   type: SettingType.boolean,
@@ -9746,6 +9793,7 @@ const haHoldMode = SettingDef<bool>(
   category: 'Home Assistant',
   section: 'Hold mode',
   subpage: 'Hold mode',
+  perDevice: true,
 );
 
 /// The forgotten-hold guard: a kiosk left on hold overnight never sleeps
@@ -12551,6 +12599,26 @@ const intercomHangupKeyRinging = SettingDef<String>(
   perDevice: true,
 );
 
+/// Buttons this kiosk puts on the screen of the kiosk it calls (issue
+/// #1504), such as Open gate on a kiosk by the gate. A JSON list of
+/// `{label, icon, action}`, the action a gesture action object. A tap on
+/// the other kiosk comes back here and runs the action on this kiosk. Kept
+/// on the kiosk it belongs to: an Open gate pushed to every kiosk in a
+/// fleet would show on every call.
+const intercomCallButtons = SettingDef<String>(
+  key: 'intercom.call_buttons',
+  type: SettingType.string,
+  defaultValue: '[]',
+  title: 'Call buttons',
+  description:
+      'Buttons on the screen of the kiosk you call. A tap runs the action '
+      'on this kiosk.',
+  category: 'Intercom',
+  section: 'Call buttons',
+  dependsOn: 'intercom.enabled',
+  perDevice: true,
+);
+
 /// Android KeyEvent codes for [intercomHangupKey]'s options.
 const intercomHangupKeyCodes = {
   'volume_up': 24,
@@ -14351,6 +14419,7 @@ const ledTimersEnabled = SettingDef<bool>(
   category: 'LED Control',
   section: 'Timers',
   dependsOn: 'led.enabled',
+  alsoDependsOn: 'timers.enabled',
 );
 
 const ledTimersBrightness = SettingDef<num>(
@@ -15066,6 +15135,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceRealtimeMcpToken,
   groundControlEnabled,
   groundControlAddress,
+  groundControlVoiceMatch,
   voiceMatchEnabled,
   voiceMatchPolicy,
   voiceMatchPeople,
@@ -15099,6 +15169,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceAnnouncementLinger,
   // The Timers page, in its groups' order: the untitled card, Shared
   // timers, When a timer ends, Text to Speech, Pills.
+  timersEnabled,
   timersShowOnStart,
   timersShowBeforeEnd,
   timersPauseScreensaver,
@@ -15347,6 +15418,7 @@ const List<SettingDef<Object>> allSettings = [
   intercomMaxCallMinutes,
   intercomHangupKey,
   intercomHangupKeyRinging,
+  intercomCallButtons,
   intercomVideo,
   intercomVideoQuality,
   intercomTls,

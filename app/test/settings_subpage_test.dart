@@ -99,12 +99,19 @@ void main() {
     expect(gc.map((d) => d.key), [
       'ground_control.enabled',
       'ground_control.address',
+      'ground_control.voice_match',
     ]);
     for (final d in gc) {
       expect(d.category, 'Ground Control', reason: d.key);
       expect(d.subpage, isNull, reason: d.key);
     }
     expect(defs.groundControlAddress.dependsOn, 'ground_control.enabled');
+    // Features, after Connection: Voice Match opens its page under Voice
+    // Satellite, at its switch.
+    expect(defs.groundControlAddress.section, 'Connection');
+    expect(defs.groundControlVoiceMatch.section, 'Features');
+    expect(defs.groundControlVoiceMatch.linksTo, defs.voiceMatchEnabled.key);
+    expect(defs.voiceMatchEnabled.subpage, 'Ground Control Voice Match');
     // Nothing on the Voice Match page still connects to the service.
     expect(
       defs.allSettings.where((d) => d.key == 'voice_match.address'),
@@ -134,8 +141,9 @@ void main() {
       ),
       isEmpty,
     );
-    // The pills switch shows for both voice runtimes.
-    expect(defs.voiceTimerPills.dependsOn, isNull);
+    // The pills switch shows for both voice runtimes, under Enable timers
+    // alone (issue #1508).
+    expect(defs.voiceTimerPills.dependsOn, defs.timersEnabled.key);
     // Timers is a fleet category of its own. Share with and the sound
     // stay on each kiosk.
     expect(defs.fleetCategoryOf(defs.voiceTimerPills), 'Timers');
@@ -147,14 +155,15 @@ void main() {
   test('the Timers groups run Shared timers, When a timer ends, Text to '
       'Speech, Pills', () {
     final sections = <String>[];
-    // The untitled card on top: the near completion slider, then the link
-    // to Drawer menu items.
+    // The untitled card on top: Enable timers, the near completion slider,
+    // then the link to Drawer menu items.
     expect(
       [
         for (final d in defs.allSettings)
           if (d.category == 'Timers' && d.section == null && !d.hidden) d.key,
       ],
       [
+        defs.timersEnabled.key,
         defs.timersShowOnStart.key,
         defs.timersShowBeforeEnd.key,
         defs.timersPauseScreensaver.key,

@@ -8614,6 +8614,26 @@ class UiStringsFr extends UiStrings {
   String get groundControlApp => 'App Ground Control';
 
   @override
+  String get groundControlFeatures => 'Fonctionnalités';
+
+  @override
+  String get settingGroundControlVoiceMatchTitle => 'Voice Match';
+
+  @override
+  String get settingGroundControlVoiceMatchDescription =>
+      'Reconnaissance du locuteur, suppression des autres voix et enregistrement.';
+
+  @override
+  String get groundControlVisionMatch => 'Vision Match';
+
+  @override
+  String get groundControlVisionMatchDescription =>
+      'Reconnaissance faciale avec la caméra de cet appareil.';
+
+  @override
+  String get groundControlComingSoon => 'Bientôt disponible';
+
+  @override
   String get haCustomPages => 'Pages personnalisées';
 
   @override
@@ -9438,6 +9458,19 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get intercomOptionHangupRingingIgnore => 'Ignorer';
+
+  @override
+  String get settingIntercomCallButtonsTitle => 'Boutons d\'appel';
+
+  @override
+  String get settingIntercomCallButtonsDescription =>
+      'Boutons sur l\'écran du kiosque appelé. Un appui exécute l\'action sur ce kiosque.';
+
+  @override
+  String get intercomCallButtonsAdd => 'Ajouter un bouton';
+
+  @override
+  String get intercomCallButtonIcon => 'Icône';
 
   @override
   String get intercomTalkSection => 'Conversation';
@@ -15834,6 +15867,13 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingTimersShowBeforeEndDescription =>
       'Combien de temps avant la fin d\'un minuteur la vue des minuteurs s\'ouvre.';
+
+  @override
+  String get settingTimersEnabledTitle => 'Activer les minuteurs';
+
+  @override
+  String get settingTimersEnabledDescription =>
+      'Réglez des minuteurs sur ce kiosque à la voix et à la main.';
 
   @override
   String get settingTimersShowOnStartTitle =>
