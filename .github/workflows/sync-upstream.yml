@@ -1,0 +1,77 @@
+name: Sync upstream and release
+
+# Keeps this fork current with jxlarrea/kiosk-satellite and, when a new
+# upstream version shows up, cuts a matching release in THIS fork so the
+# existing .github/workflows/release.yml (already in the repo once this
+# runs once) builds and signs an APK automatically with this fork's own
+# keystore secrets.
+
+on:
+  schedule:
+    - cron: "0 13 * * *" # daily at 13:00 UTC; change to taste
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add and fetch upstream
+        run: |
+          git remote add upstream https://github.com/jxlarrea/kiosk-satellite.git || true
+          git fetch upstream --tags
+
+      - name: Merge upstream/main
+        id: merge
+        run: |
+          if git merge upstream/main --no-edit; then
+            echo "clean=true" >> "$GITHUB_OUTPUT"
+          else
+            git merge --abort
+            echo "clean=false" >> "$GITHUB_OUTPUT"
+            echo "::error::Merge conflict with upstream -- resolve by hand:"
+            echo "::error::  git remote add upstream https://github.com/jxlarrea/kiosk-satellite.git"
+            echo "::error::  git fetch upstream && git merge upstream/main"
+            echo "::error::  (fix the conflicting files, then commit and push)"
+            exit 1
+          fi
+
+      - name: Push merged main
+        if: steps.merge.outputs.clean == 'true'
+        run: git push origin HEAD:main
+
+      - name: Check for a new upstream tag to mirror
+        id: check
+        if: steps.merge.outputs.clean == 'true'
+        run: |
+          LATEST_UPSTREAM_TAG=$(git ls-remote --tags --refs upstream \
+            | awk -F/ '{print $NF}' | sort -V | tail -n1)
+          LAST_SYNCED=$(cat .last-synced-tag 2>/dev/null || echo "")
+          echo "latest=$LATEST_UPSTREAM_TAG" >> "$GITHUB_OUTPUT"
+          if [ -n "$LATEST_UPSTREAM_TAG" ] && [ "$LATEST_UPSTREAM_TAG" != "$LAST_SYNCED" ]; then
+            echo "new_tag=$LATEST_UPSTREAM_TAG" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create a matching release (triggers release.yml)
+        if: steps.check.outputs.new_tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "${{ steps.check.outputs.new_tag }}" > .last-synced-tag
+          git add .last-synced-tag
+          git commit -m "Mark ${{ steps.check.outputs.new_tag }} as synced"
+          git push origin HEAD:main
+          gh release create "${{ steps.check.outputs.new_tag }}" \
+            --title "${{ steps.check.outputs.new_tag }}" \
+            --notes "Mirrors upstream ${{ steps.check.outputs.new_tag }}. Built and signed with this fork's own key."
