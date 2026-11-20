@@ -48,6 +48,8 @@ void main() {
     late Directory support;
     late BtProxyManager esphome;
     late VoiceManager voice;
+    late SettingsManager settings;
+    late CommandRegistry commands;
     final requests = <Map<String, Object?>>[];
 
     /// What the fake Home Assistant answers an intent with: null for done,
@@ -83,8 +85,8 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       final bus = EventBus();
       final log = Logger();
-      final commands = CommandRegistry(log);
-      final settings = SettingsManager(bus, commands, log);
+      commands = CommandRegistry(log);
+      settings = SettingsManager(bus, commands, log);
       await settings.init();
       await settings.set(defs.haUrl, 'http://127.0.0.1:${server.port}');
       await settings.set(defs.haToken, 'token');
@@ -171,6 +173,74 @@ void main() {
       start('t2', name: 'rice');
       expect(await voice.controlTimer('', 'pause'), contains('timer_id'));
       expect(requests, hasLength(1));
+    });
+
+    void finish(String id, {String name = ''}) => esphome.onVoice!('timer', {
+      'type': 3,
+      'id': id,
+      'name': name,
+      'totalSeconds': 600,
+      'secondsLeft': 0,
+      'isActive': false,
+    });
+
+    test('Enable timers off drops the timers and takes no new ones', () async {
+      // Issue #1508. Until the ESPHome server restarts, Home Assistant
+      // still sends events for the timers it holds.
+      start('t1', name: 'pasta');
+      start('t2', name: 'tea');
+      finish('t2', name: 'tea');
+      expect(voice.timerList(), hasLength(2));
+      await settings.set(defs.timersEnabled, false);
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(voice.timerList(), isEmpty);
+      // The running one is cancelled in Home Assistant, which would keep
+      // it. The finished one is gone from there already.
+      expect([for (final r in requests) r['name']], ['HassCancelTimer']);
+      expect(requests.single['data'], {'name': 'pasta'});
+      requests.clear();
+      start('t3', name: 'eggs');
+      expect(voice.timerList(), isEmpty);
+      final started = await commands.execute('voiceStartTimer', {'minutes': 5});
+      expect(started.ok, isFalse);
+      expect(requests, isEmpty);
+    });
+
+    test('cancelling a ringing timer silences it', () async {
+      start('t1', name: 'pasta');
+      finish('t1', name: 'pasta');
+      expect(await voice.controlTimer('t1', 'cancel'), isNull);
+      expect(voice.timerList(), isEmpty);
+      expect(requests, isEmpty);
+    });
+
+    test('an empty id silences the only ringing timer', () async {
+      start('t1');
+      finish('t1');
+      expect(await voice.controlTimer('', 'cancel'), isNull);
+      expect(voice.timerList(), isEmpty);
+    });
+
+    test('silences one ringing timer and leaves the other', () async {
+      start('t1', name: 'pasta');
+      start('t2', name: 'rice');
+      finish('t1', name: 'pasta');
+      finish('t2', name: 'rice');
+      expect(await voice.controlTimer('', 'cancel'), contains('timer_id'));
+      expect(await voice.controlTimer('t1', 'cancel'), isNull);
+      expect([for (final t in voice.timerList()) t['timer_id']], ['t2']);
+    });
+
+    test('a ringing timer only takes a cancel', () async {
+      start('t1');
+      finish('t1');
+      expect(await voice.controlTimer('t1', 'pause'), isNotNull);
+      expect(voice.timerList(), hasLength(1));
+    });
+
+    test('an empty id with no timer says so', () async {
+      expect(await voice.controlTimer('', 'cancel'), contains('no timer'));
+      expect(requests, isEmpty);
     });
 
     test('an unknown id is refused', () async {

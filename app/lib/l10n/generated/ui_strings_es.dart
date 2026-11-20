@@ -8618,6 +8618,26 @@ class UiStringsEs extends UiStrings {
   String get groundControlApp => 'App Ground Control';
 
   @override
+  String get groundControlFeatures => 'Funciones';
+
+  @override
+  String get settingGroundControlVoiceMatchTitle => 'Voice Match';
+
+  @override
+  String get settingGroundControlVoiceMatchDescription =>
+      'Reconocimiento del hablante, eliminación de otras voces y registro.';
+
+  @override
+  String get groundControlVisionMatch => 'Vision Match';
+
+  @override
+  String get groundControlVisionMatchDescription =>
+      'Reconocimiento facial con la cámara de este dispositivo.';
+
+  @override
+  String get groundControlComingSoon => 'Próximamente';
+
+  @override
   String get haCustomPages => 'Páginas personalizadas';
 
   @override
@@ -9448,6 +9468,19 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get intercomOptionHangupRingingIgnore => 'Ignorar';
+
+  @override
+  String get settingIntercomCallButtonsTitle => 'Botones de llamada';
+
+  @override
+  String get settingIntercomCallButtonsDescription =>
+      'Botones en la pantalla del kiosko al que llamas. Al tocar uno se ejecuta la acción en este kiosko.';
+
+  @override
+  String get intercomCallButtonsAdd => 'Añadir un botón';
+
+  @override
+  String get intercomCallButtonIcon => 'Icono';
 
   @override
   String get intercomTalkSection => 'Conversación';
@@ -15840,6 +15873,13 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingTimersShowBeforeEndDescription =>
       'Cuánto antes de que termine un temporizador se abre la vista de temporizadores.';
+
+  @override
+  String get settingTimersEnabledTitle => 'Activar temporizadores';
+
+  @override
+  String get settingTimersEnabledDescription =>
+      'Pon temporizadores en este kiosko por voz y a mano.';
 
   @override
   String get settingTimersShowOnStartTitle =>

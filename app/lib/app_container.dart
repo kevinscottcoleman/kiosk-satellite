@@ -244,6 +244,7 @@ class AppContainer {
     pluginActionNames = plugins.actionNames;
     // A snapshot binding the camera mid-scan would take it from the scanner.
     deviceCamera.scannerActive = () => motion.scannerHeld;
+    motion.onvifStill = deviceCamera.onvifStill;
     settings.pluginScreensavers = () => plugins.screensaverOptions;
     screensaver.pluginTouch = plugins.screensaverTouch;
     screensaver.compassCenterIsNowPlaying = () =>
@@ -268,7 +269,10 @@ class AppContainer {
         unawaited(settings.set(uiDrawerItems, pruned.encode()));
       }
     };
-    intercom = IntercomManager(bus, commands, log, settings);
+    // A Call button tapped on the kiosk this one called runs here, as a
+    // gesture action.
+    intercom = IntercomManager(bus, commands, log, settings)
+      ..runAction = gestures.runGestureAction;
     sharedTimers = SharedTimersManager(
       bus,
       commands,

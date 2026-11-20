@@ -14825,6 +14825,42 @@ abstract class UiStrings {
   /// **'Ground Control app'**
   String get groundControlApp;
 
+  /// Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Features'**
+  String get groundControlFeatures;
+
+  /// Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged. Voice Match is the feature's name, so it stays as it is.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Match'**
+  String get settingGroundControlVoiceMatchTitle;
+
+  /// Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker recognition, other voices removal and enrollment.'**
+  String get settingGroundControlVoiceMatchDescription;
+
+  /// Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged. Vision Match is the feature's name, so it stays as it is.
+  ///
+  /// In en, this message translates to:
+  /// **'Vision Match'**
+  String get groundControlVisionMatch;
+
+  /// Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Facial recognition using this device\'s camera.'**
+  String get groundControlVisionMatchDescription;
+
+  /// Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged. Shown in place of a value: the feature isn't available yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get groundControlComingSoon;
+
   /// Name of the settings page and of the dashboard picker entry that lists a person's own HTML pages hosted in Home Assistant.
   ///
   /// In en, this message translates to:
@@ -16228,6 +16264,30 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Ignore'**
   String get intercomOptionHangupRingingIgnore;
+
+  /// Setting label and section heading. Buttons this kiosk adds to the screen of the kiosk it calls, such as Open gate.
+  ///
+  /// In en, this message translates to:
+  /// **'Call buttons'**
+  String get settingIntercomCallButtonsTitle;
+
+  /// Help below the list of call buttons.
+  ///
+  /// In en, this message translates to:
+  /// **'Buttons on the screen of the kiosk you call. A tap runs the action on this kiosk.'**
+  String get settingIntercomCallButtonsDescription;
+
+  /// Row that adds a call button to the list.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a button'**
+  String get intercomCallButtonsAdd;
+
+  /// Field label in the call button editor: the icon the button shows.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get intercomCallButtonIcon;
 
   /// Section heading.
   ///
@@ -27130,6 +27190,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'How long before a timer ends the Timers view opens.'**
   String get settingTimersShowBeforeEndDescription;
+
+  /// Master switch: whether this kiosk has timers at all. Off, Home Assistant cannot set timers on it and the Timers view, pills and shared timers are gone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable timers'**
+  String get settingTimersEnabledTitle;
+
+  /// Description of that switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Set timers on this kiosk by voice and by hand.'**
+  String get settingTimersEnabledDescription;
 
   /// Switch: whether starting a timer opens the full screen timers view.
   ///

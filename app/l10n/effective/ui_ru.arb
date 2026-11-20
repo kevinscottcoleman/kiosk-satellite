@@ -32068,6 +32068,84 @@
       ]
     }
   },
+  "groundControlFeatures": "Функции",
+  "@groundControlFeatures": {
+    "context": "Settings > Ground Control",
+    "description": "Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Ground Control > Features section heading"
+      ],
+      "remoteAdmin": [
+        "Ground Control > Features section heading"
+      ]
+    }
+  },
+  "settingGroundControlVoiceMatchTitle": "Voice Match",
+  "@settingGroundControlVoiceMatchTitle": {
+    "context": "Settings > Ground Control",
+    "description": "Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged. Voice Match is the feature's name, so it stays as it is.",
+    "x-locations": {
+      "device": [
+        "Settings > Ground Control > Features > Voice Match"
+      ],
+      "remoteAdmin": [
+        "Ground Control > Features > Voice Match"
+      ]
+    }
+  },
+  "settingGroundControlVoiceMatchDescription": "Распознавание говорящего, удаление других голосов и запись голоса.",
+  "@settingGroundControlVoiceMatchDescription": {
+    "context": "Settings > Ground Control",
+    "description": "Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Ground Control > Features > Voice Match"
+      ],
+      "remoteAdmin": [
+        "Ground Control > Features > Voice Match"
+      ]
+    }
+  },
+  "groundControlVisionMatch": "Vision Match",
+  "@groundControlVisionMatch": {
+    "context": "Settings > Ground Control",
+    "description": "Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged. Vision Match is the feature's name, so it stays as it is.",
+    "x-locations": {
+      "device": [
+        "Settings > Ground Control > Features > Vision Match"
+      ],
+      "remoteAdmin": [
+        "Ground Control > Features > Vision Match"
+      ]
+    }
+  },
+  "groundControlVisionMatchDescription": "Распознавание лиц с помощью камеры этого устройства.",
+  "@groundControlVisionMatchDescription": {
+    "context": "Settings > Ground Control",
+    "description": "Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Ground Control > Features > Vision Match"
+      ],
+      "remoteAdmin": [
+        "Ground Control > Features > Vision Match"
+      ]
+    }
+  },
+  "groundControlComingSoon": "Скоро",
+  "@groundControlComingSoon": {
+    "context": "Settings > Ground Control",
+    "description": "Translate the visible label or help. Keep Ground Control, Voice Match, Voice Satellite, Kiosk Satellite and Home Assistant unchanged. Shown in place of a value: the feature isn't available yet.",
+    "x-locations": {
+      "device": [
+        "Settings > Ground Control > Features > Vision Match"
+      ],
+      "remoteAdmin": [
+        "Ground Control > Features > Vision Match"
+      ]
+    }
+  },
   "haCustomPages": "Свои страницы",
   "@haCustomPages": {
     "context": "Settings:Home Assistant:Custom Pages",
@@ -35146,6 +35224,58 @@
       ],
       "remoteAdmin": [
         "Intercom > Talk"
+      ]
+    }
+  },
+  "settingIntercomCallButtonsTitle": "Кнопки вызова",
+  "@settingIntercomCallButtonsTitle": {
+    "context": "Settings > Intercom > Call buttons",
+    "description": "Setting label and section heading. Buttons this kiosk adds to the screen of the kiosk it calls, such as Open gate.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Call buttons"
+      ],
+      "remoteAdmin": [
+        "Intercom > Call buttons"
+      ]
+    }
+  },
+  "settingIntercomCallButtonsDescription": "Кнопки на экране киоска, которому вы звоните. Нажатие выполняет действие на этом киоске.",
+  "@settingIntercomCallButtonsDescription": {
+    "context": "Settings > Intercom > Call buttons",
+    "description": "Help below the list of call buttons.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Call buttons"
+      ],
+      "remoteAdmin": [
+        "Intercom > Call buttons"
+      ]
+    }
+  },
+  "intercomCallButtonsAdd": "Добавить кнопку",
+  "@intercomCallButtonsAdd": {
+    "context": "Settings > Intercom > Call buttons",
+    "description": "Row that adds a call button to the list.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Call buttons"
+      ],
+      "remoteAdmin": [
+        "Intercom > Call buttons"
+      ]
+    }
+  },
+  "intercomCallButtonIcon": "Значок",
+  "@intercomCallButtonIcon": {
+    "context": "Settings > Intercom > Call buttons",
+    "description": "Field label in the call button editor: the icon the button shows.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Call buttons"
+      ],
+      "remoteAdmin": [
+        "Intercom > Call buttons"
       ]
     }
   },
@@ -56843,6 +56973,32 @@
   "@settingTimersShowBeforeEndDescription": {
     "context": "Settings > Timers",
     "description": "Description of that slider.",
+    "x-locations": {
+      "device": [
+        "Settings > Timers"
+      ],
+      "remoteAdmin": [
+        "Timers"
+      ]
+    }
+  },
+  "settingTimersEnabledTitle": "Включить таймеры",
+  "@settingTimersEnabledTitle": {
+    "context": "Settings > Timers",
+    "description": "Master switch: whether this kiosk has timers at all. Off, Home Assistant cannot set timers on it and the Timers view, pills and shared timers are gone.",
+    "x-locations": {
+      "device": [
+        "Settings > Timers"
+      ],
+      "remoteAdmin": [
+        "Timers"
+      ]
+    }
+  },
+  "settingTimersEnabledDescription": "Ставьте таймеры на этом киоске голосом и вручную.",
+  "@settingTimersEnabledDescription": {
+    "context": "Settings > Timers",
+    "description": "Description of that switch.",
     "x-locations": {
       "device": [
         "Settings > Timers"

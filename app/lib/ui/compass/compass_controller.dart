@@ -125,16 +125,26 @@ class CompassController {
   /// The stored layout as it runs. With the remote admin off and no Menu
   /// placed, a Menu is added, or there would be no way back into Settings
   /// (the drawer keeps its Settings row for the same reason).
+  /// With Enable timers off, a Timers center gives way to the dashboard
+  /// the kiosk starts on. The view refuses to open then, and Compass would
+  /// keep asking for it (issue #1508).
   CompassLayout _readLayout() {
     final stored = CompassLayout.decode(c.settings.get(defs.navCompassLayout));
-    return c.settings.get(defs.remoteEnabled) ? stored : stored.withMenu();
+    final layout = c.settings.get(defs.remoteEnabled)
+        ? stored
+        : stored.withMenu();
+    if (layout.center.kind == 'timers' && !c.settings.get(defs.timersEnabled)) {
+      return layout.copyWith(center: CompassView.home);
+    }
+    return layout;
   }
 
   void start() {
     _layout = _readLayout();
     _settingsSub = c.bus.on<SettingChanged>().listen((e) {
       if (e.key == defs.navCompassLayout.key ||
-          e.key == defs.remoteEnabled.key) {
+          e.key == defs.remoteEnabled.key ||
+          e.key == defs.timersEnabled.key) {
         final before = currentView;
         _layout = _readLayout();
         // A layout without the view on screen anymore lands on the center.
@@ -1089,7 +1099,8 @@ class CompassTile {
 /// its view switched on, a camera a camera view, the App Launcher its
 /// apps and the intercom the intercom.
 bool compassKindConfigurable(AppContainer c, String kind) => switch (kind) {
-  'dashboard' || 'menu' || 'calendar' || 'alarms' || 'timers' => true,
+  'dashboard' || 'menu' || 'calendar' || 'alarms' => true,
+  'timers' => c.settings.get(defs.timersEnabled),
   'music_library' => c.musicLibrary.available.isNotEmpty,
   'now_playing' =>
     c.settings.get(defs.sendspinPlayerActive) &&
